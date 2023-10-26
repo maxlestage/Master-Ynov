@@ -28,12 +28,12 @@ L'application utilise une architecture basée sur des microservices pour assurer
 ```mermaid
 graph TD;
     A[Service d'authentification] --> B[Service de gestion des profils];
-    B --> C[Service de matching];
-    B --> D[Service de gestion des événements];
+    E --> C[Service de matching];
+    E --> D[Service de gestion des événements];
     B --> E[Service de localisation];
     B --> F[Service de chat];
     B --> G[Service de chat vidéo];
-    B --> H[Service de journalisation des échanges];
+    F & G--> H[Service de journalisation des échanges];
 ```
 
 ## Stratégies de sécurité
