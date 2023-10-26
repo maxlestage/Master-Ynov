@@ -36,6 +36,133 @@ graph TD;
     F & G--> H[Service de journalisation des échanges];
 ```
 
+Voici un exemple de schéma pour la base de données NoSQL de votre application de rencontre :
+
+## Schéma de la base de données
+
+La base de données NoSQL de l'application de rencontre est conçue pour stocker les informations des utilisateurs, les correspondances (matches), les groupes de sortie, les événements et les données de localisation. Voici un aperçu du schéma de la base de données :
+
+### Collection "users"
+
+La collection "users" contient les informations des utilisateurs enregistrés dans l'application.
+
+```mermaid
+classDiagram
+    class User {
+        + _id: ObjectId
+        + email: String
+        + password: String
+        + name: String
+        + age: Number
+        + gender: String
+        + location: String
+        + preferences: Object
+        + photos: Array
+    }
+```
+
+Chaque document de la collection "users" contient les champs suivants :
+
+- `_id` : l'identifiant unique de l'utilisateur (généré automatiquement par la base de données).
+- `email` : l'adresse e-mail de l'utilisateur.
+- `password` : le mot de passe de l'utilisateur (stocké de manière sécurisée en utilisant des algorithmes de chiffrement forts).
+- `name` : le nom de l'utilisateur.
+- `age` : l'âge de l'utilisateur.
+- `gender` : le genre de l'utilisateur.
+- `location` : la localisation de l'utilisateur.
+- `preferences` : les préférences de l'utilisateur (par exemple, les préférences de recherche de partenaires).
+- `photos` : les photos de l'utilisateur (stockées sous forme d'URL ou de références vers des fichiers).
+
+### Collection "matches"
+
+La collection "matches" contient les correspondances entre les utilisateurs.
+
+```mermaid
+classDiagram
+    class Match {
+        + _id: ObjectId
+        + userId1: ObjectId
+        + userId2: ObjectId
+        + createdAt: Date
+    }
+```
+
+Chaque document de la collection "matches" contient les champs suivants :
+
+- `_id` : l'identifiant unique de la correspondance (généré automatiquement par la base de données).
+- `userId1` : l'identifiant de l'utilisateur 1 dans la correspondance.
+- `userId2` : l'identifiant de l'utilisateur 2 dans la correspondance.
+- `createdAt` : la date et l'heure de création de la correspondance.
+
+### Collection "groups"
+
+La collection "groups" contient les informations sur les groupes de sortie.
+
+```mermaid
+classDiagram
+    class Group {
+        + _id: ObjectId
+        + name: String
+        + description: String
+        + members: Array
+        + events: Array
+    }
+```
+
+Chaque document de la collection "groups" contient les champs suivants :
+
+- `_id` : l'identifiant unique du groupe (généré automatiquement par la base de données).
+- `name` : le nom du groupe.
+- `description` : la description du groupe.
+- `members` : les membres du groupe (stockés sous forme d'identifiants d'utilisateurs).
+- `events` : les événements associés au groupe (stockés sous forme d'identifiants d'événements).
+
+### Collection "events"
+
+La collection "events" contient les informations sur les événements dans la ville.
+
+```mermaid
+classDiagram
+    class Event {
+        + _id: ObjectId
+        + name: String
+        + description: String
+        + location: String
+        + date: Date
+        + attendees: Array
+    }
+```
+
+Chaque document de la collection "events" contient les champs suivants :
+
+- `_id` : l'identifiant unique de l'événement (généré automatiquement par la base de données).
+- `name` : le nom de l'événement.
+- `description` : la description de l'événement.
+- `location` : la localisation de l'événement.
+- `date` : la date et l'heure de l'événement.
+- `attendees` : les participants à l'événement (stockés sous forme d'identifiants d'utilisateurs).
+
+### Collection "locations"
+
+La collection "locations" contient les informations sur les différentes localisations disponibles.
+
+```mermaid
+classDiagram
+    class Location {
+        + _id: ObjectId
+        + name: String
+        + latitude: Number
+        + longitude: Number
+    }
+```
+
+Chaque document de la collection "locations" contient les champs suivants :
+
+- `_id` : l'identifiant unique de la localisation (généré automatiquement par la base de données).
+- `name` : le nom de la localisation.
+- `latitude` : la latitude de la localisation.
+- `longitude` : la longitude de la localisation.
+
 ## Stratégies de sécurité
 
 La sécurité des données et la protection de la plateforme sont des aspects essentiels de notre application de rencontre. Voici quelques stratégies de sécurité à mettre en place :
