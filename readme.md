@@ -178,6 +178,8 @@ Chaque document de la collection "locations" contient les champs suivants :
 
 ## Schéma base de données
 
+### À définir si on part du principe que l'user a une localisation et la localisation lui donne des matchs et des events
+
 ```mermaid
 classDiagram
     class User {
@@ -225,9 +227,11 @@ classDiagram
 
     User "1" -- "N" Match : has
     User "1" -- "N" Group : belongs to
+    User "1" -- "N" Location : takes place at
+    Location "1" -- "1" Event : takes place at
     User "N" -- "N" Event : attends
     Event "1" -- "N" Group : belongs to
-    Event "1" -- "1" Location : takes place at
+   
 ```
 
 ## Stratégies de sécurité
