@@ -46,3 +46,4 @@ La sécurité des données et la protection de la plateforme sont des aspects es
 4. **Validation des entrées utilisateur** : Validez et filtrez toutes les entrées utilisateur pour prévenir les attaques XSS (Cross-Site Scripting) et autres vulnérabilités.
 5. **Sécurité des API** : Utilisez des mécanismes d'authentification et de chiffrement pour sécuriser les API utilisées par les microservices.
 6. **Surveillance et journalisation** : Mettez en place des outils de surveillance et de journalisation pour détecter les activités suspectes, les tentatives d'intrusion et les fuites de données.
+7. **Respect de la RGPD** : Le service de journalisation des échanges doit être conçu de manière à respecter les exigences de la RGPD en matière de collecte, de stockage et de traitement des données personnelles.
