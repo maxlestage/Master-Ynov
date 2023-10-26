@@ -23,6 +23,7 @@ L'application utilise une architecture basée sur des microservices pour assurer
 5. **Service de localisation** : Gère la fonctionnalité de localisation, la carte, les positions des utilisateurs, etc.
 6. **Service de chat** : Gère le service de chat entre utilisateurs, permettant les conversations textuelles.
 7. **Service de chat vidéo** : Gère le service de chat par vidéos, permettant les conversations en vidéo entre utilisateurs.
+8. **Service de journalisation des échanges** : Gère la journalisation des échanges entre utilisateurs, conformément aux exigences de la RGPD.
 
 ```mermaid
 graph TD;
@@ -32,6 +33,7 @@ graph TD;
     B --> E[Service de localisation];
     B --> F[Service de chat];
     B --> G[Service de chat vidéo];
+    B --> H[Service de journalisation des échanges];
 ```
 
 ## Stratégies de sécurité
