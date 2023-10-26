@@ -176,6 +176,60 @@ Chaque document de la collection "locations" contient les champs suivants :
 - `latitude` : la latitude de la localisation.
 - `longitude` : la longitude de la localisation.
 
+## Schéma base de données
+
+```mermaid
+classDiagram
+    class User {
+        + _id: ObjectId
+        + email: String
+        + password: String
+        + name: String
+        + age: Number
+        + gender: String
+        + location: String
+        + preferences: Object
+        + photos: Array
+    }
+
+    class Match {
+        + _id: ObjectId
+        + userId1: ObjectId
+        + userId2: ObjectId
+        + createdAt: Date
+    }
+
+    class Group {
+        + _id: ObjectId
+        + name: String
+        + description: String
+        + members: Array
+        + events: Array
+    }
+
+    class Event {
+        + _id: ObjectId
+        + name: String
+        + description: String
+        + location: String
+        + date: Date
+        + attendees: Array
+    }
+
+    class Location {
+        + _id: ObjectId
+        + name: String
+        + latitude: Number
+        + longitude: Number
+    }
+
+    User "1" -- "N" Match : has
+    User "1" -- "N" Group : belongs to
+    User "N" -- "N" Event : attends
+    Event "1" -- "N" Group : belongs to
+    Event "1" -- "1" Location : takes place at
+```
+
 ## Stratégies de sécurité
 
 La sécurité des données et la protection de la plateforme sont des aspects essentiels de notre application de rencontre. Voici quelques stratégies de sécurité à mettre en place :
