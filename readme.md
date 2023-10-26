@@ -5,11 +5,17 @@ Cette application de rencontre permet aux utilisateurs de matcher avec d'autres 
 ## Fonctionnalités
 
 - **Matching** : Les utilisateurs peuvent parcourir les profils des autres utilisateurs et décider de les matcher ou non, à la manière de Tinder.
+
 - **Groupes de sortie** : Les utilisateurs peuvent trouver des groupes avec lesquels ils peuvent sortir en soirée ou participer à des événements spécifiques.
+
 - **Gestion des utilisateurs** : L'application permet de gérer les informations des utilisateurs, telles que les profils, les préférences, les photos, etc.
+
 - **Gestion des événements** : Les utilisateurs peuvent consulter les événements dans leur ville, tels que des soirées, des expositions, etc., et y participer.
+
 - **Localisation** : L'application utilise une carte pour permettre aux utilisateurs de se positionner sur une localisation différente et de rencontrer des personnes à cet endroit.
+
 - **Service de chat entre utilisateurs** : Les utilisateurs peuvent communiquer entre eux via un service de chat intégré à l'application.
+
 - **Service de chat par vidéos** : Les utilisateurs peuvent également avoir des conversations en vidéo avec d'autres utilisateurs grâce à un service de chat par vidéos.
 
 ## Microservices
@@ -17,12 +23,19 @@ Cette application de rencontre permet aux utilisateurs de matcher avec d'autres 
 L'application utilise une architecture basée sur des microservices pour assurer la scalabilité et la flexibilité. Voici les principaux microservices utilisés :
 
 1. **Service d'authentification** : Gère l'authentification des utilisateurs, la création de comptes, la connexion, etc.
+
 2. **Service de gestion des profils** : Gère les profils des utilisateurs, les informations personnelles, les préférences, les photos, etc.
+
 3. **Service de matching** : Gère l'algorithme de matching et les fonctionnalités associées.
+
 4. **Service de gestion des événements** : Gère les événements dans la ville, les informations, les inscriptions, etc.
+
 5. **Service de localisation** : Gère la fonctionnalité de localisation, la carte, les positions des utilisateurs, etc.
+
 6. **Service de chat** : Gère le service de chat entre utilisateurs, permettant les conversations textuelles.
+
 7. **Service de chat vidéo** : Gère le service de chat par vidéos, permettant les conversations en vidéo entre utilisateurs.
+
 8. **Service de journalisation des échanges** : Gère la journalisation des échanges entre utilisateurs, conformément aux exigences de la RGPD.
 
 ```mermaid
