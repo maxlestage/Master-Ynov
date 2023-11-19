@@ -4,19 +4,19 @@ Cette application de rencontre permet aux utilisateurs de matcher avec d'autres 
 
 ## Fonctionnalités
 
-- **Matching** : Les utilisateurs peuvent parcourir les profils des autres utilisateurs et décider de les matcher ou non, à la manière de Tinder.
+-   **Matching** : Les utilisateurs peuvent parcourir les profils des autres utilisateurs et décider de les matcher ou non, à la manière de Tinder.
 
-- **Groupes de sortie** : Les utilisateurs peuvent trouver des groupes avec lesquels ils peuvent sortir en soirée ou participer à des événements spécifiques.
+-   **Groupes de sortie** : Les utilisateurs peuvent trouver des groupes avec lesquels ils peuvent sortir en soirée ou participer à des événements spécifiques.
 
-- **Gestion des utilisateurs** : L'application permet de gérer les informations des utilisateurs, telles que les profils, les préférences, les photos, etc.
+-   **Gestion des utilisateurs** : L'application permet de gérer les informations des utilisateurs, telles que les profils, les préférences, les photos, etc.
 
-- **Gestion des événements** : Les utilisateurs peuvent consulter les événements dans leur ville, tels que des soirées, des expositions, etc., et y participer.
+-   **Gestion des événements** : Les utilisateurs peuvent consulter les événements dans leur ville, tels que des soirées, des expositions, etc., et y participer.
 
-- **Localisation** : L'application utilise une carte pour permettre aux utilisateurs de se positionner sur une localisation différente et de rencontrer des personnes à cet endroit.
+-   **Localisation** : L'application utilise une carte pour permettre aux utilisateurs de se positionner sur une localisation différente et de rencontrer des personnes à cet endroit.
 
-- **Service de chat entre utilisateurs** : Les utilisateurs peuvent communiquer entre eux via un service de chat intégré à l'application.
+-   **Service de chat entre utilisateurs** : Les utilisateurs peuvent communiquer entre eux via un service de chat intégré à l'application.
 
-- **Service de chat par vidéos** : Les utilisateurs peuvent également avoir des conversations en vidéo avec d'autres utilisateurs grâce à un service de chat par vidéos.
+-   **Service de chat par vidéos** : Les utilisateurs peuvent également avoir des conversations en vidéo avec d'autres utilisateurs grâce à un service de chat par vidéos.
 
 ## Microservices
 
@@ -53,7 +53,49 @@ Voici un exemple de schéma pour la base de données NoSQL de votre application 
 
 ## Schéma de la base de données
 
-La base de données NoSQL de l'application de rencontre est conçue pour stocker les informations des utilisateurs, les correspondances (matches), les groupes de sortie, les événements et les données de localisation. Voici un aperçu du schéma de la base de données :
+La base de données de l'application de rencontre est structurée autour de plusieurs entités principales :
+
+-   **Utilisateurs** : Ces entités représentent les utilisateurs de l'application. Chaque utilisateur a un profil et peut participer à plusieurs matchs.
+
+-   **Profils** : Ces entités contiennent des informations détaillées sur chaque utilisateur.
+
+-   **Matchs** : Ces entités représentent les correspondances entre deux utilisateurs. Chaque match est lié à deux utilisateurs et peut contenir plusieurs messages.
+
+-   **Messages** : Ces entités représentent les messages échangés dans chaque match. Chaque message est lié à un utilisateur et à un match.
+
+Voici un schéma de la base de données qui illustre ces relations :
+
+```mermaid
+classDiagram
+   class UTILISATEUR {
+       string id
+       string nom
+       int age
+       string sexe
+       string emplacement
+   }
+   class PROFIL {
+       string id
+       string bio
+       string photo
+       string interests
+   }
+   class MATCH {
+       string id
+       string id_utilisateur1
+       string id_utilisateur2
+   }
+   class MESSAGE {
+       string id
+       string id_utilisateur
+       string id_match
+       string contenu
+   }
+   UTILISATEUR "1" --> "0..*" PROFIL : possède
+   UTILISATEUR "1" --> "0..*" MATCH : participe
+   MATCH "1" --> "0..*" MESSAGE : contient
+
+```
 
 ### Collection "users"
 
@@ -76,15 +118,15 @@ classDiagram
 
 Chaque document de la collection "users" contient les champs suivants :
 
-- `_id` : l'identifiant unique de l'utilisateur (généré automatiquement par la base de données).
-- `email` : l'adresse e-mail de l'utilisateur.
-- `password` : le mot de passe de l'utilisateur (stocké de manière sécurisée en utilisant des algorithmes de chiffrement forts).
-- `name` : le nom de l'utilisateur.
-- `age` : l'âge de l'utilisateur.
-- `gender` : le genre de l'utilisateur.
-- `location` : la localisation de l'utilisateur.
-- `preferences` : les préférences de l'utilisateur (par exemple, les préférences de recherche de partenaires).
-- `photos` : les photos de l'utilisateur (stockées sous forme d'URL ou de références vers des fichiers).
+-   `_id` : l'identifiant unique de l'utilisateur (généré automatiquement par la base de données).
+-   `email` : l'adresse e-mail de l'utilisateur.
+-   `password` : le mot de passe de l'utilisateur (stocké de manière sécurisée en utilisant des algorithmes de chiffrement forts).
+-   `name` : le nom de l'utilisateur.
+-   `age` : l'âge de l'utilisateur.
+-   `gender` : le genre de l'utilisateur.
+-   `location` : la localisation de l'utilisateur.
+-   `preferences` : les préférences de l'utilisateur (par exemple, les préférences de recherche de partenaires).
+-   `photos` : les photos de l'utilisateur (stockées sous forme d'URL ou de références vers des fichiers).
 
 ### Collection "matches"
 
@@ -102,10 +144,10 @@ classDiagram
 
 Chaque document de la collection "matches" contient les champs suivants :
 
-- `_id` : l'identifiant unique de la correspondance (généré automatiquement par la base de données).
-- `userId1` : l'identifiant de l'utilisateur 1 dans la correspondance.
-- `userId2` : l'identifiant de l'utilisateur 2 dans la correspondance.
-- `createdAt` : la date et l'heure de création de la correspondance.
+-   `_id` : l'identifiant unique de la correspondance (généré automatiquement par la base de données).
+-   `userId1` : l'identifiant de l'utilisateur 1 dans la correspondance.
+-   `userId2` : l'identifiant de l'utilisateur 2 dans la correspondance.
+-   `createdAt` : la date et l'heure de création de la correspondance.
 
 ### Collection "groups"
 
@@ -124,11 +166,11 @@ classDiagram
 
 Chaque document de la collection "groups" contient les champs suivants :
 
-- `_id` : l'identifiant unique du groupe (généré automatiquement par la base de données).
-- `name` : le nom du groupe.
-- `description` : la description du groupe.
-- `members` : les membres du groupe (stockés sous forme d'identifiants d'utilisateurs).
-- `events` : les événements associés au groupe (stockés sous forme d'identifiants d'événements).
+-   `_id` : l'identifiant unique du groupe (généré automatiquement par la base de données).
+-   `name` : le nom du groupe.
+-   `description` : la description du groupe.
+-   `members` : les membres du groupe (stockés sous forme d'identifiants d'utilisateurs).
+-   `events` : les événements associés au groupe (stockés sous forme d'identifiants d'événements).
 
 ### Collection "events"
 
@@ -148,12 +190,12 @@ classDiagram
 
 Chaque document de la collection "events" contient les champs suivants :
 
-- `_id` : l'identifiant unique de l'événement (généré automatiquement par la base de données).
-- `name` : le nom de l'événement.
-- `description` : la description de l'événement.
-- `location` : la localisation de l'événement.
-- `date` : la date et l'heure de l'événement.
-- `attendees` : les participants à l'événement (stockés sous forme d'identifiants d'utilisateurs).
+-   `_id` : l'identifiant unique de l'événement (généré automatiquement par la base de données).
+-   `name` : le nom de l'événement.
+-   `description` : la description de l'événement.
+-   `location` : la localisation de l'événement.
+-   `date` : la date et l'heure de l'événement.
+-   `attendees` : les participants à l'événement (stockés sous forme d'identifiants d'utilisateurs).
 
 ### Collection "locations"
 
@@ -171,10 +213,10 @@ classDiagram
 
 Chaque document de la collection "locations" contient les champs suivants :
 
-- `_id` : l'identifiant unique de la localisation (généré automatiquement par la base de données).
-- `name` : le nom de la localisation.
-- `latitude` : la latitude de la localisation.
-- `longitude` : la longitude de la localisation.
+-   `_id` : l'identifiant unique de la localisation (généré automatiquement par la base de données).
+-   `name` : le nom de la localisation.
+-   `latitude` : la latitude de la localisation.
+-   `longitude` : la longitude de la localisation.
 
 ## Schéma base de données
 
@@ -231,7 +273,7 @@ classDiagram
     Location "1" -- "1" Event : takes place at
     User "N" -- "N" Event : attends
     Event "1" -- "N" Group : belongs to
-   
+
 ```
 
 ## Stratégies de sécurité
