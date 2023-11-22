@@ -1,4 +1,4 @@
-# Application de Rencontre
+# Application de Rencontre :  ‘Thunder’
 
 Cette application de rencontre permet aux utilisateurs de matcher avec d'autres personnes, de trouver des groupes pour sortir en soirée et de gérer les informations des utilisateurs, les événements dans la ville et la localisation.
 
