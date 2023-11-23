@@ -1,15 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:dev.db"
+// }
 
 generator client {
   provider = "cargo prisma"
@@ -17,6 +17,90 @@ generator client {
 }
 
 model User {
-  id          String @id
-  displayName String
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  email           String    @unique
+  password        String
+  firstname       String
+  lastname        String
+  age             Int
+  gender          Gender
+  biography       String?
+  locationId      Int?
+  location        Location? @relation(fields: [locationId], references: [id])
+  employer        String?
+  schoolGrade     String?
+  dietaryPrefs    String?
+  companyRole     String?
+  role            Role      @default(USER)
+  likes           Like[]    @relation("Like")
+  likedBy         Like[]    @relation("LikeBy")
+  dislikes        Dislike[] @relation("Dislike")
+  dislikedBy      Dislike[] @relation("DislikeBy")
+  sentMatches     Match[]   @relation("SentMatches")
+  receivedMatches Match[]   @relation("ReceivedMatches")
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  FromUser   User @relation("Like", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  fromUserId Int
+
+  ToUser   User @relation("LikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId Int
+}
+
+model Dislike {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  FromUser   User @relation("Dislike", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  fromUserId Int
+
+  ToUser   User @relation("DislikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId Int
+}
+
+model Match {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  FromUser   User @relation("SentMatches", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  fromUserId Int
+
+  ToUser   User @relation("ReceivedMatches", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId Int
+}
+
+model Location {
+  id        Int    @id @default(autoincrement())
+  latitude  Float? @default(0)
+  longitude Float? @default(0)
+  User      User[]
+}
+
+enum Role {
+  USER
+  PLUS
+  LOVE
+  PRO
+  PREMIUM
+  GOLD
+  ADMIN
+}
+
+enum Gender {
+  Male
+  Female
+  Bisexual
+  Gay
+  Lesbian
+  Pansexual
+  Transgender
+  NonBinary
+  Intersex
+  Queer
+  Other
 }
