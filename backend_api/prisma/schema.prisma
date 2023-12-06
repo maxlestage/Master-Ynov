@@ -39,39 +39,34 @@ model User {
   dislikedBy      Dislike[] @relation("DislikeBy")
   sentMatches     Match[]   @relation("SentMatches")
   receivedMatches Match[]   @relation("ReceivedMatches")
+  Gallery         Gallery[] @relation("UserGallery")
 }
 
 model Like {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  FromUser   User @relation("Like", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  FromUser   User     @relation("Like", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
   fromUserId Int
-
-  ToUser   User @relation("LikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
-  toUserId Int
+  ToUser     User     @relation("LikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId   Int
 }
 
 model Dislike {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  FromUser   User @relation("Dislike", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  FromUser   User     @relation("Dislike", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
   fromUserId Int
-
-  ToUser   User @relation("DislikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
-  toUserId Int
+  ToUser     User     @relation("DislikeBy", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId   Int
 }
 
 model Match {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-
-  FromUser   User @relation("SentMatches", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  FromUser   User     @relation("SentMatches", fields: [fromUserId], references: [id]) // Utilisateur qui a envoyé le like
   fromUserId Int
-
-  ToUser   User @relation("ReceivedMatches", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
-  toUserId Int
+  ToUser     User     @relation("ReceivedMatches", fields: [toUserId], references: [id]) // Utilisateur qui a reçu le like
+  toUserId   Int
 }
 
 model Location {
@@ -79,6 +74,14 @@ model Location {
   latitude  Float? @default(0)
   longitude Float? @default(0)
   User      User[]
+}
+
+model Gallery {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  url       String
+  userId    Int
+  user      User     @relation("UserGallery", fields: [userId], references: [id])
 }
 
 enum Role {
